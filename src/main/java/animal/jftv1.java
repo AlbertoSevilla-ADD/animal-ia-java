@@ -36,6 +36,7 @@ public class jftv1 extends javax.swing.JFrame {
 
     // Variables de la interfaz de usuario
     private javax.swing.JButton jButton2; // Solo queda el botón de Salir
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
 
     // Paneles para agrupar las casillas por nivel taxonómico
@@ -386,6 +387,7 @@ public class jftv1 extends javax.swing.JFrame {
         // Botones
         jButton2 = new JButton("Salir");
         jLabel1 = new JLabel("Sistema Experto de Reptiles");
+        jButton3 = new JButton("Regresar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
@@ -420,15 +422,16 @@ public class jftv1 extends javax.swing.JFrame {
 
         // Panel para los botones
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(jButton2);
-
+        buttonPanel.add(jButton3); //Boton de Salir
+        buttonPanel.add(jButton2); //Boton de Regresar
+        
         // Configura el layout de la ventana principal usando BorderLayout
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         
         pack();
-        setSize(800, 600); // Establece un tamaño inicial razonable
+        setSize(500, 400); // Establece un tamaño inicial razonable
     }
 
     private void setupInitialVisibility() {
