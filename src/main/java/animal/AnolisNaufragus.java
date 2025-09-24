@@ -8,14 +8,14 @@ package animal;
  *
  * @author CorSan
  */
-public class AbroniaGraminea extends javax.swing.JFrame {
+public class AnolisNaufragus extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AbroniaGraminea.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AnolisNaufragus.class.getName());
 
     /**
-     * Creates new form AbroniaGraminea
+     * Creates new form AnolisNaufragus
      */
-    public AbroniaGraminea() {
+    public AnolisNaufragus() {
         initComponents();
     }
 
@@ -39,13 +39,6 @@ public class AbroniaGraminea extends javax.swing.JFrame {
         jCheckBox4 = new javax.swing.JCheckBox();
         jCheckBox5 = new javax.swing.JCheckBox();
         jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
-        jCheckBox12 = new javax.swing.JCheckBox();
-        jCheckBox13 = new javax.swing.JCheckBox();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -95,80 +88,52 @@ public class AbroniaGraminea extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, -1));
 
         jCheckBox1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox1.setText("Cola Prensil");
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+        jCheckBox1.setText("Color verde predominante");
+        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
 
         jCheckBox2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox2.setText("Escamas Grandes");
-        jPanel1.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+        jCheckBox2.setText("Cresta dorsal");
+        jPanel1.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
 
         jCheckBox3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox3.setText("Hábitat Arbóreo");
-        jPanel1.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
+        jCheckBox3.setText("Tamaño grande");
+        jPanel1.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
 
         jCheckBox4.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox4.setText("Coloración Rojiza");
-        jPanel1.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+        jCheckBox4.setText("Hábitat urbano");
+        jPanel1.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
         jCheckBox5.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox5.setText("Coloración Verde");
-        jPanel1.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+        jCheckBox5.setText("Dewlap rojo");
+        jPanel1.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
 
         jCheckBox6.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox6.setText("Coloración Esmeralda");
-        jPanel1.add(jCheckBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
-
-        jCheckBox7.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox7.setText("Labios Rojos ");
-        jPanel1.add(jCheckBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, -1, -1));
-
-        jCheckBox8.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox8.setText("Cola Oscura");
-        jPanel1.add(jCheckBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
-
-        jCheckBox9.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox9.setText("Banda Dorsal");
-        jPanel1.add(jCheckBox9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
-
-        jCheckBox10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox10.setText("Cabeza Ancha ");
-        jPanel1.add(jCheckBox10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
-
-        jCheckBox11.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox11.setText("Orejas Visibles ");
-        jPanel1.add(jCheckBox11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, -1));
-
-        jCheckBox12.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox12.setText("Escamas Quilladas ");
-        jPanel1.add(jCheckBox12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
-
-        jCheckBox13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox13.setText("Ojos Grandes");
-        jPanel1.add(jCheckBox13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 272, 190, 30));
+        jCheckBox6.setText("Escamas rugosas");
+        jPanel1.add(jCheckBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 272, 170, 30));
 
         jButton1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton1.setText("Encadenar");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 80, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 70, -1));
 
         jButton2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton2.setText("Salir");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 50, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 60, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes2das/iguana yucateca.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 220, 240));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes2das/Serpiente.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -196,25 +161,18 @@ public class AbroniaGraminea extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AbroniaGraminea().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AnolisNaufragus().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox12;
-    private javax.swing.JCheckBox jCheckBox13;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
