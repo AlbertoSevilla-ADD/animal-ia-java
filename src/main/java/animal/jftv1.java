@@ -22,12 +22,16 @@ import java.awt.FontMetrics;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicCheckBoxUI;
+import java.util.Stack;
 
 public class jftv1 extends javax.swing.JFrame {
 
     // Instanciamos nuestra clase principal del sistema experto
     ReptileTaxonomyBR objbr = new ReptileTaxonomyBR();
     String c;
+
+    private Stack<JPanel> historyStack = new Stack<>();
+    private JPanel currentlyVisiblePanel = null;
 
     public jftv1() {
         initComponents();
@@ -373,7 +377,6 @@ public class jftv1 extends javax.swing.JFrame {
         jCheckBoxEscamasQuilladas = new JCheckBox("Escamas quilladas");
         jCheckBoxOjosGrandes = new JCheckBox("Ojos grandes");
 
-
         // Paneles y agrupaciones
         pnlReino = createPanel("Reino", jCheckBoxUnicelulares, jCheckBoxFotosintesis, jCheckBoxEsporas, jCheckBoxAmbientesExtremos, jCheckBoxMovilidadActiva);
         pnlFilo = createPanel("Filo", jCheckBoxSimetriaRadial, jCheckBoxTejidosVerdaderos, jCheckBoxSegmentacion, jCheckBoxDigestivoCompleto, jCheckBoxNotocorda, jCheckBoxConchaCalcarea, jCheckBoxQuetas);
@@ -383,23 +386,30 @@ public class jftv1 extends javax.swing.JFrame {
         pnlGenero = createPanel("Género", jCheckBoxDosPatasTraseras, jCheckBoxOjosReducidos, jCheckBoxAdaptadoExcavar, jCheckBoxCuerpoAlargadoCilindrico, jCheckBoxSinPatas, jCheckBoxVenenoso, jCheckBoxPielOsteodermos, jCheckBoxLagartosParpadosMoviles, jCheckBoxGeckos, jCheckBoxEspolonesPelvicos, jCheckBoxEscamasVertHilerasTransv, jCheckBoxEscamasDorsalesQuilladas);
         pnlEspecie = createPanel("Especie", jCheckBoxEndemicoMexico, jCheckBoxPeninsulaBajaCalifornia, jCheckBoxEstadoGuerrero, jCheckBoxEstadoMichoacan, jCheckBoxChiapasGuatemala, jCheckBoxHastaCostaRica, jCheckBoxTamanoAdulto24cm, jCheckBoxTamanoAdulto18cm, jCheckBoxColorUniformeOscuro, jCheckBoxColoracionRosadaPalida);
         pnlAdicionales = createPanel("Características Adicionales", jCheckBoxHerbivoro, jCheckBoxOmnivoro, jCheckBoxCrestaDorsal, jCheckBoxEspinosasCola, jCheckBoxAdaptacionDesierto, jCheckBoxEndemicoIslas, jCheckBoxPeligroExtincion, jCheckBoxTieneLamelas, jCheckBoxEscamasEspecializadas, jCheckBoxPapadaSuperReducida, jCheckBoxCapacidadAutotomiaCaudal, jCheckBoxPapadaExtensible, jCheckBoxPapadaGrande, jCheckBoxPorosFemorales, jCheckBoxColorVerdePredominante, jCheckBoxHabitatUrbano, jCheckBoxDewlapRojo, jCheckBoxEscamasRugosas, jCheckBoxDistribucionTropical, jCheckBoxDietaHerbivora, jCheckBoxPicoFuerteCrustaceos, jCheckBoxDietaPastosMarinos, jCheckBoxPupilaRedonda, jCheckBoxPatronAnillo, jCheckBoxHabitatAcuatico, jCheckBoxHabitatArboreo, jCheckBoxExpandeCuello, jCheckBoxColaComprimida, jCheckBoxEscamasVentralesDesarrolladas, jCheckBoxActividadNocturna, jCheckBoxEscamasEnFila, jCheckBoxPliegueLateral, jCheckBoxColaPrensil, jCheckBoxHabitatAsiatico, jCheckBoxTamanoPequeno, jCheckBoxCuerpoDelgado, jCheckBoxTamanoGrande, jCheckBoxCuerpoLiso, jCheckBoxCorredoresVeloces, jCheckBoxDiurnos, jCheckBoxColoracionOscura, jCheckBoxCrestaAlta, jCheckBoxColaLarga, jCheckBoxEspinasCortas, jCheckBoxCincoCrestas, jCheckBoxCrestaDividida, jCheckBoxEscamasGrandes, jCheckBoxDietaCarnivora, jCheckBoxBandaPectoral, jCheckBoxDorsoAmarillo, jCheckBoxCabezaMuyGrande, jCheckBoxAnillosTricolor, jCheckBoxAnillosNegrosAnchos, jCheckBoxCabezaNegra, jCheckBoxColaCorta, jCheckBoxDistribucionCentroamerica, jCheckBoxDistribucionSudamerica, jCheckBoxDistribucionMexico, jCheckBoxEstadoOaxaca, jCheckBoxHabitatSelva, jCheckBoxHabitatBosqueSeco, jCheckBoxHabitatAcuario, jCheckBoxAnilloBlancoPresente, jCheckBoxColoracionRojiza, jCheckBoxColoracionVerde, jCheckBoxColoracionEsmeralda, jCheckBoxLabiosRojos, jCheckBoxColaOscura, jCheckBoxBandaDorsal, jCheckBoxCabezaAncha, jCheckBoxOrejasVisibles, jCheckBoxEscamasQuilladas, jCheckBoxOjosGrandes);
-        
+
         // Botones
         jButton2 = new JButton("Salir");
         jLabel1 = new JLabel("Sistema Experto de Reptiles");
         jButton3 = new JButton("Regresar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
+
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
+        // Configuración del botón Regresar
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarActionPerformed(evt);
+            }
+        });
+
         // Configuración de los listeners para el flujo secuencial y la llamada al sistema experto
         setupSequencialListeners();
-        
+
         // Panel principal para el contenido, usa BoxLayout para apilar verticalmente
         JPanel mainContentPanel = new JPanel();
         mainContentPanel.setLayout(new BoxLayout(mainContentPanel, BoxLayout.Y_AXIS));
@@ -424,14 +434,14 @@ public class jftv1 extends javax.swing.JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(jButton3); //Boton de Salir
         buttonPanel.add(jButton2); //Boton de Regresar
-        
+
         // Configura el layout de la ventana principal usando BorderLayout
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-        
+
         pack();
-        setSize(500, 400); // Establece un tamaño inicial razonable
+        setSize(450, 600); // Establece un tamaño inicial razonable
     }
 
     private void setupInitialVisibility() {
@@ -443,64 +453,133 @@ public class jftv1 extends javax.swing.JFrame {
         pnlGenero.setVisible(false);
         pnlEspecie.setVisible(false);
         pnlAdicionales.setVisible(false);
+
+        // Limpiar la pila de historial y agregar el panel inicial
+        historyStack.clear();
+        historyStack.push(pnlReino);
     }
-    
+
     private void setupSequencialListeners() {
         // Reino -> Filo
-        jCheckBoxMovilidadActiva.addActionListener(e -> pnlFilo.setVisible(jCheckBoxMovilidadActiva.isSelected()));
-        
+        jCheckBoxMovilidadActiva.addActionListener(e -> {
+            if (jCheckBoxMovilidadActiva.isSelected()) {
+                showPanel(pnlFilo);
+            }
+        });
+
         // Filo -> Clase
-        jCheckBoxNotocorda.addActionListener(e -> pnlClase.setVisible(jCheckBoxNotocorda.isSelected()));
-        
+        jCheckBoxNotocorda.addActionListener(e -> {
+            if (jCheckBoxNotocorda.isSelected()) {
+                showPanel(pnlClase);
+            }
+        });
+
         // Clase -> Orden
-        jCheckBoxPielSecaEscamosa.addActionListener(e -> pnlOrden.setVisible(jCheckBoxPielSecaEscamosa.isSelected()));
-        
+        jCheckBoxPielSecaEscamosa.addActionListener(e -> {
+            if (jCheckBoxPielSecaEscamosa.isSelected()) {
+                showPanel(pnlOrden);
+            }
+        });
+
         // Orden -> Familia
-        jCheckBoxFecundacionInterna.addActionListener(e -> pnlFamilia.setVisible(jCheckBoxFecundacionInterna.isSelected()));
-        
+        jCheckBoxFecundacionInterna.addActionListener(e -> {
+            if (jCheckBoxFecundacionInterna.isSelected()) {
+                showPanel(pnlFamilia);
+            }
+        });
+
         // Familia -> Género
-        jCheckBoxVenenoPotente.addActionListener(e -> pnlGenero.setVisible(jCheckBoxVenenoPotente.isSelected()));
+        jCheckBoxVenenoPotente.addActionListener(e -> {
+            if (jCheckBoxVenenoPotente.isSelected()) {
+                showPanel(pnlGenero);
+            }
+        });
 
         // Género -> Especie
-        jCheckBoxEndemicoMexico.addActionListener(e -> pnlEspecie.setVisible(jCheckBoxEndemicoMexico.isSelected()));
-        
+        jCheckBoxEndemicoMexico.addActionListener(e -> {
+            if (jCheckBoxEndemicoMexico.isSelected()) {
+                showPanel(pnlEspecie);
+            }
+        });
+
         // Especie -> Adicionales y llamada a la función principal
         jCheckBoxColoracionRosadaPalida.addActionListener(e -> {
-            pnlAdicionales.setVisible(jCheckBoxColoracionRosadaPalida.isSelected());
             if (jCheckBoxColoracionRosadaPalida.isSelected()) {
+                showPanel(pnlAdicionales);
+
                 String resultado = objbr.clasificarReptilCompleto(
-                    // ... todas las 100+ variables, como en tu código original ...
-                    toSiNo(jCheckBoxUnicelulares), toSiNo(jCheckBoxFotosintesis), toSiNo(jCheckBoxEsporas), toSiNo(jCheckBoxAmbientesExtremos), toSiNo(jCheckBoxMovilidadActiva),
-                    // Filo
-                    toSiNo(jCheckBoxSimetriaRadial), toSiNo(jCheckBoxTejidosVerdaderos), toSiNo(jCheckBoxSegmentacion), toSiNo(jCheckBoxDigestivoCompleto), toSiNo(jCheckBoxNotocorda), toSiNo(jCheckBoxConchaCalcarea), toSiNo(jCheckBoxQuetas),
-                    // Clase
-                    toSiNo(jCheckBoxSangreFria), toSiNo(jCheckBoxHuevoAmniotico), toSiNo(jCheckBoxGarrasDedos), toSiNo(jCheckBoxCorazonTresCamaras), toSiNo(jCheckBoxPielSecaEscamosa), toSiNo(jCheckBoxMandibulas), toSiNo(jCheckBoxAletasLobuladas), toSiNo(jCheckBoxRadiosOseosAletas), toSiNo(jCheckBoxEsqueletoOseo),
-                    // Orden
-                    toSiNo(jCheckBoxFecundacionInterna), toSiNo(jCheckBoxCaparazonOseo), toSiNo(jCheckBoxMudaPiel), toSiNo(jCheckBoxTercerOjoParietal), toSiNo(jCheckBoxCuidadoParental),
-                    // Familia
-                    toSiNo(jCheckBoxDientesPleurodontes), toSiNo(jCheckBoxLenguaCortaNoBifida), toSiNo(jCheckBoxTermorregulador), toSiNo(jCheckBoxEscamasEspinosas), toSiNo(jCheckBoxExtremidadesReducidas), toSiNo(jCheckBoxOjosParpadosMoviles), toSiNo(jCheckBoxPupilasVerticales), toSiNo(jCheckBoxVenenoPotente), toSiNo(jCheckBoxAutotomiaCaudal), toSiNo(jCheckBoxHabitosArboricolas), toSiNo(jCheckBoxCarnivoros), toSiNo(jCheckBoxHuevosCascaraCalcarea), toSiNo(jCheckBoxMarino), toSiNo(jCheckBoxTerrestre), toSiNo(jCheckBoxEscudosAusentes), toSiNo(jCheckBoxCaparazonAlto), toSiNo(jCheckBoxCaparazonAplanado), toSiNo(jCheckBoxCabezaGrandeAlargada), toSiNo(jCheckBoxHabitatPrincipalUSA), toSiNo(jCheckBoxHabitatPrincipalAustralia),
-                    // Genero
-                    toSiNo(jCheckBoxDosPatasTraseras), toSiNo(jCheckBoxOjosReducidos), toSiNo(jCheckBoxAdaptadoExcavar), toSiNo(jCheckBoxCuerpoAlargadoCilindrico), toSiNo(jCheckBoxSinPatas), toSiNo(jCheckBoxVenenoso), toSiNo(jCheckBoxPielOsteodermos), toSiNo(jCheckBoxLagartosParpadosMoviles), toSiNo(jCheckBoxGeckos), toSiNo(jCheckBoxEspolonesPelvicos), toSiNo(jCheckBoxEscamasVertHilerasTransv), toSiNo(jCheckBoxEscamasDorsalesQuilladas),
-                    // Especie
-                    toSiNo(jCheckBoxEndemicoMexico), toSiNo(jCheckBoxPeninsulaBajaCalifornia), toSiNo(jCheckBoxEstadoGuerrero), toSiNo(jCheckBoxEstadoMichoacan), toSiNo(jCheckBoxChiapasGuatemala), toSiNo(jCheckBoxHastaCostaRica), toSiNo(jCheckBoxTamanoAdulto24cm), toSiNo(jCheckBoxTamanoAdulto18cm), toSiNo(jCheckBoxColorUniformeOscuro), toSiNo(jCheckBoxColoracionRosadaPalida),
-                    // Características adicionales
-                    toSiNo(jCheckBoxHerbivoro), toSiNo(jCheckBoxOmnivoro), toSiNo(jCheckBoxCrestaDorsal), toSiNo(jCheckBoxEspinosasCola), toSiNo(jCheckBoxAdaptacionDesierto), toSiNo(jCheckBoxEndemicoIslas), toSiNo(jCheckBoxPeligroExtincion),
-                    // Variables para anolis
-                    toSiNo(jCheckBoxTieneLamelas), toSiNo(jCheckBoxEscamasEspecializadas), toSiNo(jCheckBoxPapadaSuperReducida), toSiNo(jCheckBoxCapacidadAutotomiaCaudal), toSiNo(jCheckBoxPapadaExtensible), toSiNo(jCheckBoxPapadaGrande), toSiNo(jCheckBoxPorosFemorales), toSiNo(jCheckBoxColorVerdePredominante), toSiNo(jCheckBoxHabitatUrbano), toSiNo(jCheckBoxDewlapRojo), toSiNo(jCheckBoxEscamasRugosas),
-                    // Variables para tortugas
-                    toSiNo(jCheckBoxDistribucionTropical), toSiNo(jCheckBoxDietaHerbivora), toSiNo(jCheckBoxPicoFuerteCrustaceos), toSiNo(jCheckBoxDietaPastosMarinos),
-                    // Variables para elápidos
-                    toSiNo(jCheckBoxCuerpoCilindrico), toSiNo(jCheckBoxPupilaRedonda), toSiNo(jCheckBoxPatronAnillo), toSiNo(jCheckBoxHabitatAcuatico), toSiNo(jCheckBoxHabitatArboreo), toSiNo(jCheckBoxExpandeCuello), toSiNo(jCheckBoxColaComprimida), toSiNo(jCheckBoxEscamasVentralesDesarrolladas), toSiNo(jCheckBoxActividadNocturna),
-                    // Variables para anguidos
-                    toSiNo(jCheckBoxPatasReducidasAusentes), toSiNo(jCheckBoxColaMuyFragil), toSiNo(jCheckBoxEscamasEnFila), toSiNo(jCheckBoxPliegueLateral), toSiNo(jCheckBoxColaPrensil), toSiNo(jCheckBoxHabitatAsiatico), toSiNo(jCheckBoxTamanoPequeno), toSiNo(jCheckBoxCuerpoDelgado), toSiNo(jCheckBoxTamanoGrande), toSiNo(jCheckBoxCuerpoLiso),
-                    // Variables para ctenosauras
-                    toSiNo(jCheckBoxColaEspinosa), toSiNo(jCheckBoxCorredoresVeloces), toSiNo(jCheckBoxDiurnos), toSiNo(jCheckBoxColoracionOscura), toSiNo(jCheckBoxCrestaAlta), toSiNo(jCheckBoxColaLarga), toSiNo(jCheckBoxEspinasCortas), toSiNo(jCheckBoxCincoCrestas), toSiNo(jCheckBoxCrestaDividida), toSiNo(jCheckBoxEscamasGrandes), toSiNo(jCheckBoxDietaCarnivora), toSiNo(jCheckBoxBandaPectoral), toSiNo(jCheckBoxDorsoAmarillo),
-                    // Variable para caretta
-                    toSiNo(jCheckBoxCabezaMuyGrande),
-                    // Variables para micrurus
-                    toSiNo(jCheckBoxAnillosTricolor), toSiNo(jCheckBoxAnillosNegrosAnchos), toSiNo(jCheckBoxCabezaNegra), toSiNo(jCheckBoxColaCorta), toSiNo(jCheckBoxDistribucionCentroamerica), toSiNo(jCheckBoxDistribucionSudamerica), toSiNo(jCheckBoxDistribucionMexico), toSiNo(jCheckBoxEstadoOaxaca), toSiNo(jCheckBoxHabitatSelva), toSiNo(jCheckBoxHabitatBosqueSeco), toSiNo(jCheckBoxHabitatAcuario), toSiNo(jCheckBoxAnilloBlancoPresente),
-                    // Variables para Abronia
-                    toSiNo(jCheckBoxColoracionRojiza), toSiNo(jCheckBoxColoracionVerde), toSiNo(jCheckBoxColoracionEsmeralda), toSiNo(jCheckBoxLabiosRojos), toSiNo(jCheckBoxColaOscura), toSiNo(jCheckBoxBandaDorsal), toSiNo(jCheckBoxCabezaAncha), toSiNo(jCheckBoxOrejasVisibles), toSiNo(jCheckBoxEscamasQuilladas), toSiNo(jCheckBoxOjosGrandes));
+                        // Reino
+                        toSiNo(jCheckBoxUnicelulares), toSiNo(jCheckBoxFotosintesis), toSiNo(jCheckBoxEsporas),
+                        toSiNo(jCheckBoxAmbientesExtremos), toSiNo(jCheckBoxMovilidadActiva),
+                        // Filo
+                        toSiNo(jCheckBoxSimetriaRadial), toSiNo(jCheckBoxTejidosVerdaderos), toSiNo(jCheckBoxSegmentacion),
+                        toSiNo(jCheckBoxDigestivoCompleto), toSiNo(jCheckBoxNotocorda), toSiNo(jCheckBoxConchaCalcarea),
+                        toSiNo(jCheckBoxQuetas),
+                        // Clase
+                        toSiNo(jCheckBoxSangreFria), toSiNo(jCheckBoxHuevoAmniotico), toSiNo(jCheckBoxGarrasDedos),
+                        toSiNo(jCheckBoxCorazonTresCamaras), toSiNo(jCheckBoxPielSecaEscamosa), toSiNo(jCheckBoxMandibulas),
+                        toSiNo(jCheckBoxAletasLobuladas), toSiNo(jCheckBoxRadiosOseosAletas), toSiNo(jCheckBoxEsqueletoOseo),
+                        // Orden
+                        toSiNo(jCheckBoxFecundacionInterna), toSiNo(jCheckBoxCaparazonOseo), toSiNo(jCheckBoxMudaPiel),
+                        toSiNo(jCheckBoxTercerOjoParietal), toSiNo(jCheckBoxCuidadoParental),
+                        // Familia
+                        toSiNo(jCheckBoxDientesPleurodontes), toSiNo(jCheckBoxLenguaCortaNoBifida), toSiNo(jCheckBoxTermorregulador),
+                        toSiNo(jCheckBoxEscamasEspinosas), toSiNo(jCheckBoxExtremidadesReducidas), toSiNo(jCheckBoxOjosParpadosMoviles),
+                        toSiNo(jCheckBoxPupilasVerticales), toSiNo(jCheckBoxVenenoPotente), toSiNo(jCheckBoxAutotomiaCaudal),
+                        toSiNo(jCheckBoxHabitosArboricolas), toSiNo(jCheckBoxCarnivoros), toSiNo(jCheckBoxHuevosCascaraCalcarea),
+                        toSiNo(jCheckBoxMarino), toSiNo(jCheckBoxTerrestre), toSiNo(jCheckBoxEscudosAusentes),
+                        toSiNo(jCheckBoxCaparazonAlto), toSiNo(jCheckBoxCaparazonAplanado), toSiNo(jCheckBoxCabezaGrandeAlargada),
+                        toSiNo(jCheckBoxHabitatPrincipalUSA), toSiNo(jCheckBoxHabitatPrincipalAustralia),
+                        // Género
+                        toSiNo(jCheckBoxDosPatasTraseras), toSiNo(jCheckBoxOjosReducidos), toSiNo(jCheckBoxAdaptadoExcavar),
+                        toSiNo(jCheckBoxCuerpoAlargadoCilindrico), toSiNo(jCheckBoxSinPatas), toSiNo(jCheckBoxVenenoso),
+                        toSiNo(jCheckBoxPielOsteodermos), toSiNo(jCheckBoxLagartosParpadosMoviles), toSiNo(jCheckBoxGeckos),
+                        toSiNo(jCheckBoxEspolonesPelvicos), toSiNo(jCheckBoxEscamasVertHilerasTransv), toSiNo(jCheckBoxEscamasDorsalesQuilladas),
+                        // Especie
+                        toSiNo(jCheckBoxEndemicoMexico), toSiNo(jCheckBoxPeninsulaBajaCalifornia), toSiNo(jCheckBoxEstadoGuerrero),
+                        toSiNo(jCheckBoxEstadoMichoacan), toSiNo(jCheckBoxChiapasGuatemala), toSiNo(jCheckBoxHastaCostaRica),
+                        toSiNo(jCheckBoxTamanoAdulto24cm), toSiNo(jCheckBoxTamanoAdulto18cm), toSiNo(jCheckBoxColorUniformeOscuro),
+                        toSiNo(jCheckBoxColoracionRosadaPalida),
+                        // Características adicionales
+                        toSiNo(jCheckBoxHerbivoro), toSiNo(jCheckBoxOmnivoro), toSiNo(jCheckBoxCrestaDorsal),
+                        toSiNo(jCheckBoxEspinosasCola), toSiNo(jCheckBoxAdaptacionDesierto), toSiNo(jCheckBoxEndemicoIslas),
+                        toSiNo(jCheckBoxPeligroExtincion),
+                        // Variables para anolis
+                        toSiNo(jCheckBoxTieneLamelas), toSiNo(jCheckBoxEscamasEspecializadas), toSiNo(jCheckBoxPapadaSuperReducida),
+                        toSiNo(jCheckBoxCapacidadAutotomiaCaudal), toSiNo(jCheckBoxPapadaExtensible), toSiNo(jCheckBoxPapadaGrande),
+                        toSiNo(jCheckBoxPorosFemorales), toSiNo(jCheckBoxColorVerdePredominante), toSiNo(jCheckBoxHabitatUrbano),
+                        toSiNo(jCheckBoxDewlapRojo), toSiNo(jCheckBoxEscamasRugosas),
+                        // Variables para tortugas
+                        toSiNo(jCheckBoxDistribucionTropical), toSiNo(jCheckBoxDietaHerbivora), toSiNo(jCheckBoxPicoFuerteCrustaceos),
+                        toSiNo(jCheckBoxDietaPastosMarinos),
+                        // Variables para elápidos
+                        toSiNo(jCheckBoxCuerpoCilindrico), toSiNo(jCheckBoxPupilaRedonda), toSiNo(jCheckBoxPatronAnillo),
+                        toSiNo(jCheckBoxHabitatAcuatico), toSiNo(jCheckBoxHabitatArboreo), toSiNo(jCheckBoxExpandeCuello),
+                        toSiNo(jCheckBoxColaComprimida), toSiNo(jCheckBoxEscamasVentralesDesarrolladas), toSiNo(jCheckBoxActividadNocturna),
+                        // Variables para anguidos
+                        toSiNo(jCheckBoxPatasReducidasAusentes), toSiNo(jCheckBoxColaMuyFragil), toSiNo(jCheckBoxEscamasEnFila),
+                        toSiNo(jCheckBoxPliegueLateral), toSiNo(jCheckBoxColaPrensil), toSiNo(jCheckBoxHabitatAsiatico),
+                        toSiNo(jCheckBoxTamanoPequeno), toSiNo(jCheckBoxCuerpoDelgado), toSiNo(jCheckBoxTamanoGrande),
+                        toSiNo(jCheckBoxCuerpoLiso),
+                        // Variables para ctenosauras
+                        toSiNo(jCheckBoxColaEspinosa), toSiNo(jCheckBoxCorredoresVeloces), toSiNo(jCheckBoxDiurnos),
+                        toSiNo(jCheckBoxColoracionOscura), toSiNo(jCheckBoxCrestaAlta), toSiNo(jCheckBoxColaLarga),
+                        toSiNo(jCheckBoxEspinasCortas), toSiNo(jCheckBoxCincoCrestas), toSiNo(jCheckBoxCrestaDividida),
+                        toSiNo(jCheckBoxEscamasGrandes), toSiNo(jCheckBoxDietaCarnivora), toSiNo(jCheckBoxBandaPectoral),
+                        toSiNo(jCheckBoxDorsoAmarillo),
+                        // Variable para caretta
+                        toSiNo(jCheckBoxCabezaMuyGrande),
+                        // Variables para micrurus
+                        toSiNo(jCheckBoxAnillosTricolor), toSiNo(jCheckBoxAnillosNegrosAnchos), toSiNo(jCheckBoxCabezaNegra),
+                        toSiNo(jCheckBoxColaCorta), toSiNo(jCheckBoxDistribucionCentroamerica), toSiNo(jCheckBoxDistribucionSudamerica),
+                        toSiNo(jCheckBoxDistribucionMexico), toSiNo(jCheckBoxEstadoOaxaca), toSiNo(jCheckBoxHabitatSelva),
+                        toSiNo(jCheckBoxHabitatBosqueSeco), toSiNo(jCheckBoxHabitatAcuario), toSiNo(jCheckBoxAnilloBlancoPresente),
+                        // Variables para Abronia
+                        toSiNo(jCheckBoxColoracionRojiza), toSiNo(jCheckBoxColoracionVerde), toSiNo(jCheckBoxColoracionEsmeralda),
+                        toSiNo(jCheckBoxLabiosRojos), toSiNo(jCheckBoxColaOscura), toSiNo(jCheckBoxBandaDorsal),
+                        toSiNo(jCheckBoxCabezaAncha), toSiNo(jCheckBoxOrejasVisibles), toSiNo(jCheckBoxEscamasQuilladas),
+                        toSiNo(jCheckBoxOjosGrandes)
+                );
 
                 if (resultado != null) {
                     JOptionPane.showMessageDialog(null, "El reptil es: " + resultado);
@@ -510,7 +589,62 @@ public class jftv1 extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    // Método para mostrar un nuevo panel y guardar el historial
+    private void showPanel(JPanel newPanel) {
+        if (currentlyVisiblePanel != null) {
+            currentlyVisiblePanel.setVisible(false);
+        }
+        newPanel.setVisible(true);
+        historyStack.push(newPanel);
+        currentlyVisiblePanel = newPanel;
+    }
+
+    // Método para manejar el botón Regresar
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (historyStack.size() > 1) {
+            // Ocultar el panel actual
+            JPanel currentPanel = historyStack.pop();
+            currentPanel.setVisible(false);
+
+            // Mostrar el panel anterior
+            JPanel previousPanel = historyStack.peek();
+            previousPanel.setVisible(true);
+            currentlyVisiblePanel = previousPanel;
+
+            // Limpiar los checkboxes del panel actual y posteriores
+            clearCheckBoxesFromPanel(currentPanel);
+
+            // Si volvemos al panel inicial, limpiar todos los checkboxes
+            if (previousPanel == pnlReino) {
+                clearAllCheckBoxes();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ya estás en el panel inicial.");
+        }
+    }
+
+    // Método para limpiar checkboxes de un panel específico
+    private void clearCheckBoxesFromPanel(JPanel panel) {
+        for (java.awt.Component comp : panel.getComponents()) {
+            if (comp instanceof JCheckBox) {
+                ((JCheckBox) comp).setSelected(false);
+            }
+        }
+    }
+
+    // Método para limpiar todos los checkboxes
+    private void clearAllCheckBoxes() {
+        // Limpiar todos los checkboxes de todos los paneles
+        JPanel[] allPanels = {pnlReino, pnlFilo, pnlClase, pnlOrden, pnlFamilia, pnlGenero, pnlEspecie, pnlAdicionales};
+        for (JPanel panel : allPanels) {
+            clearCheckBoxesFromPanel(panel);
+        }
+
+        // Restablecer la visibilidad inicial
+        setupInitialVisibility();
+    }
+
     // Método auxiliar para crear paneles usando GridBagLayout con un título
     private JPanel createPanel(String title, JCheckBox... checkBoxes) {
         JPanel panel = new JPanel(new GridBagLayout());
@@ -520,7 +654,7 @@ public class jftv1 extends javax.swing.JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
         gbc.insets = new Insets(2, 5, 2, 5); // Margen interno
-        
+
         // Agregar el título con estilo CSS en línea para tamaño y color
         JLabel titleLabel = new JLabel("<html><h3 style='color:red;'>" + title + "</h3></html>");
         panel.add(titleLabel, gbc);
@@ -531,13 +665,13 @@ public class jftv1 extends javax.swing.JFrame {
             cb.setHorizontalTextPosition(SwingConstants.LEFT);
             cb.setFocusPainted(false);
             cb.setBorderPaintedFlat(true);
-            
+
             // Permitir que el texto se ajuste
             cb.setUI(new WrapCheckBoxUI());
-            
+
             panel.add(cb, gbc);
         }
-        
+
         return panel;
     }
 
@@ -573,26 +707,27 @@ public class jftv1 extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Clase personalizada para CheckBox con texto ajustado
     class WrapCheckBoxUI extends BasicCheckBoxUI {
+
         @Override
         public Dimension getPreferredSize(JComponent c) {
             JCheckBox cb = (JCheckBox) c;
             String text = cb.getText();
             FontMetrics fm = cb.getFontMetrics(cb.getFont());
-            
+
             // Calcular el ancho necesario para el texto
             int textWidth = fm.stringWidth(text);
             int availableWidth = Math.min(750, c.getParent().getWidth() - 50); // Ancho disponible
-            
+
             if (availableWidth > 0 && textWidth > availableWidth) {
                 // Si el texto es muy largo, calcular altura necesaria
                 int lines = (int) Math.ceil((double) textWidth / availableWidth);
                 int height = fm.getHeight() * lines + 20; // Altura basada en líneas
                 return new Dimension(availableWidth + 30, Math.max(25, height));
             }
-            
+
             return super.getPreferredSize(c);
         }
     }
