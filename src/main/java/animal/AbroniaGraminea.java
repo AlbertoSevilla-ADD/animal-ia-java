@@ -33,7 +33,7 @@ public class AbroniaGraminea extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cola_prensil = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
@@ -94,9 +94,9 @@ public class AbroniaGraminea extends javax.swing.JFrame {
         jLabel1.setText("ESPECIE");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, -1));
 
-        jCheckBox1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jCheckBox1.setText("Cola Prensil");
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+        cola_prensil.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cola_prensil.setText("Cola Prensil");
+        jPanel1.add(cola_prensil, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
 
         jCheckBox2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jCheckBox2.setText("Escamas Grandes");
@@ -200,9 +200,9 @@ public class AbroniaGraminea extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cola_prensil;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JCheckBox jCheckBox11;
     private javax.swing.JCheckBox jCheckBox12;
