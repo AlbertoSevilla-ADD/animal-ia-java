@@ -602,7 +602,7 @@ public class ReptileTaxonomyBR {
         ColaMuyFragil = new RuleVariable(br, "ColaMuyFragil");
         EscamasEnFila = new RuleVariable(br, "EscamasEnFila");
         PliegueLateral = new RuleVariable(br, "PliegueLateral");
-        SinPatas = new RuleVariable(br, "SinPatas");
+        SinPatas1 = new RuleVariable(br, "SinPatas");
         ColaPrensil = new RuleVariable(br, "ColaPrensil");
         HabitatAsiatico = new RuleVariable(br, "HabitatAsiatico");
         TamanoPequeno = new RuleVariable(br, "TamanoPequeno");

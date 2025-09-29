@@ -11,10 +11,8 @@ package animal;
 public class CarettaCaretta extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CarettaCaretta.class.getName());
-
-    /**
-     * Creates new form CarettaCaretta
-     */
+    ReptileTaxonomyBR objbr=new ReptileTaxonomyBR();
+    
     public CarettaCaretta() {
         initComponents();
     }
@@ -93,17 +91,32 @@ public class CarettaCaretta extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton1.setText("Encadenar");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 270, 70, -1));
 
         jButton2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton2.setText("Salir");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 50, -1));
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 200, 20));
 
         jButton3.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton3.setText("Limpiar");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 60, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,6 +132,28 @@ public class CarettaCaretta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String c,a="";
+        if(jCheckBox1.isSelected())
+            a="si";
+        else
+            a="no";
+        c=objbr.getEspecie5("Caretta", a);
+        jLabel4.setText(c);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        jCheckBox1.setSelected(false);
+        jLabel4.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

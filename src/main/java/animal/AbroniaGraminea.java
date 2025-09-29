@@ -4,17 +4,11 @@
  */
 package animal;
 
-/**
- *
- * @author CorSan
- */
 public class AbroniaGraminea extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AbroniaGraminea.class.getName());
 
-    /**
-     * Creates new form AbroniaGraminea
-     */
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AbroniaGraminea.class.getName());
+    ReptileTaxonomyBR objbr = new ReptileTaxonomyBR();
+
     public AbroniaGraminea() {
         initComponents();
     }
@@ -135,11 +129,21 @@ public class AbroniaGraminea extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton1.setText("Encadenar");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 80, -1));
 
         jButton2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton2.setText("Salir");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 50, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes2das/iguana yucateca.png"))); // NOI18N
@@ -149,6 +153,11 @@ public class AbroniaGraminea extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jButton3.setText("Limpiar");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 60, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,6 +173,76 @@ public class AbroniaGraminea extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String v,a="",b="",c="",d="",e="",f="",g="",h="",i="",j="";
+        
+        if(jCheckBox4.isSelected())
+            a="si";
+        else
+            a="no";
+        if(jCheckBox5.isSelected())
+            b="si";
+        else
+            b="no";
+        if(jCheckBox6.isSelected())
+            c="si";
+        else
+            c="no";
+        if(jCheckBox7.isSelected())
+            d="si";
+        else
+            d="no";
+        if(jCheckBox8.isSelected())
+            e="si";
+        else
+            e="no";
+        if(jCheckBox9.isSelected())
+            f="si";
+        else
+            f="no";
+        
+        if(jCheckBox10.isSelected())
+            g="si";
+        else
+            g="no";
+        if(jCheckBox11.isSelected())
+            h="si";
+        else
+            h="no";
+        if(jCheckBox12.isSelected())
+            i="si";
+        else
+            i="no";
+        if(jCheckBox13.isSelected())
+            j="si";
+        else
+            j="no";
+        
+        v=objbr.getEspecie4("Abronia",a,b,c,d,e,f,g,h,i,j);
+        jLabel4.setText(v);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+        jCheckBox7.setSelected(false);
+        jCheckBox8.setSelected(false);
+        jCheckBox9.setSelected(false);
+        jCheckBox10.setSelected(false);
+        jCheckBox11.setSelected(false);
+        jCheckBox12.setSelected(false);
+        jCheckBox13.setSelected(false);
+        jLabel4.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

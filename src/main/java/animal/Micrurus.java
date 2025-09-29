@@ -21,7 +21,6 @@ public class Micrurus extends javax.swing.JFrame {
         jButton2.setEnabled(false);
     }
         
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
